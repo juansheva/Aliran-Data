@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Delay : MonoBehaviour
+public class DeadDelay : MonoBehaviour
 {
     private PlayerController player;
-    private float timer;
+    public float timer;
 
     // Start is called before the first frame update
     private void Start()
@@ -17,9 +17,11 @@ public class Delay : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        timer += Time.deltaTime;
-
-        if (player == null & timer >= player.timer + 1)
+        if (player == null)
+        {
+            timer -= Time.deltaTime;
+        }
+        if (timer <= 0)
         {
             SceneManager.LoadScene("GameOver");
         }

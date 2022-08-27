@@ -16,6 +16,7 @@ public class HighscoreTable : MonoBehaviour
     private void Awake()
     {
         string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Debug.Log(jsonString);
 
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 

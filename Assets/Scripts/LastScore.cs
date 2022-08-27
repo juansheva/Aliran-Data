@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreAkhir : MonoBehaviour
+public class LastScore : MonoBehaviour
 {
     public Text[] score;
 

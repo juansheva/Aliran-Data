@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloseApplication : MonoBehaviour
+public class CloseApplicationUI : MonoBehaviour
 {
     public void ClosingApplication()
     {

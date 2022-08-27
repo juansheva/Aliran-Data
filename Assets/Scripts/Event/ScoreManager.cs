@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreController : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
+    private PlayerController player;
     public Text[] scoreUI;
-    public PlayerController player;
     private float score;
-    private float timer;
 
     // Start is called before the first frame update
     private void Start()
     {
+        player = FindObjectOfType<PlayerController>();
         Data.score = 0;
     }
 
@@ -27,11 +27,11 @@ public class ScoreController : MonoBehaviour
                 Data.score += 1;
                 score = 0;
             }
-            Score();
+            UpdateScoreUI();
         }
     }
 
-    private void Score()
+    private void UpdateScoreUI()
     {
         for (int i = 0; i < scoreUI.Length; i++)
         {

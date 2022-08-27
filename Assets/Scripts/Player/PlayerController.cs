@@ -7,29 +7,38 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed;
-    public bool isDead = false;
-    private Vector2 screenBounds;
+
+    //private Vector2 screenBounds;
     public GameObject deadEffect;
-    public float timer;
+
+    private PlayerMovement playerMovement;
+    private IVerticalMoveable verticalMove;
+
+    private PlayerDead playerDead;
+    private IDeadable deadable;
 
     // Start is called before the first frame update
     private void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+        playerMovement = new PlayerMovement(rb, speed);
+        verticalMove = playerMovement;
+
+        playerDead = new PlayerDead(gameObject, deadEffect);
+        deadable = playerDead;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        timer += Time.deltaTime;
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        //screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
     }
 
     private void FixedUpdate()
     {
         if (Input.GetKey("space"))
         {
-            Fly();
+            verticalMove.Fly();
         }
         if (Input.touchCount > 0)
         {
@@ -37,32 +46,16 @@ public class PlayerController : MonoBehaviour
             Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
             if (touchPos.x > -10)
             {
-                Fly();
+                verticalMove.Fly();
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.GetComponent<VirusController>())
-        {
-            Dead();
-        }
         if (c.gameObject.CompareTag("Enemy"))
         {
-            Dead();
+            deadable.Dead();
         }
-    }
-
-    private void Dead()
-    {
-        Destroy(this.gameObject);
-        Instantiate(deadEffect, transform.position, Quaternion.identity);
-        isDead = true;
-    }
-
-    private void Fly()
-    {
-        rb.AddForce(new Vector2(0, speed));
     }
 }

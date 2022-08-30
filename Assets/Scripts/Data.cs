@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-public class Data : MonoBehaviour
+public class Data
 {
     public static int score;
 }
